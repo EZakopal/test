@@ -1,0 +1,752 @@
+openapi: 3.0.0
+info:
+  title: Dr. Max IPF - CrossDock / M2 API
+  description: Dr.Max Cross dock API provide comprehensive set of features for consumers whom realize CrossDock business integration as well as prepare new version of other processes
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/DrMax_BDC/CrossDock/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://{username}.gigantic-server.com:{port}/{basePath}
+  description: The production API server
+  variables:
+    username:
+      description: Test instance of DrMax Integration platform
+      default: Test
+    port:
+      default: "8443"
+      enum:
+      - "8443"
+      - "443"
+    basePath:
+      default: v1
+paths:
+  /eShop-services/api/v1/order/:
+    post:
+      tags:
+      - Shop
+      summary: Create Order
+      description: Creates new order object, in case of _Reservation type_ is passed into pharmacy (Farmis instance). Order object already exists in EShop DB and it is passed as a request body of this call.
+      operationId: CreateOrder
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        explode: true
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: 'Order Data '
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrder'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /eShop-services/api/v1/order/{orderId}:
+    get:
+      tags:
+      - Shop
+      summary: Get Order
+      description: Returns the order object from e-Shop DB. (For now, will be used for operations and monitoring purposes as well as for debugging of issues)
+      operationId: GetOrder
+      parameters:
+      - name: orderId
+        in: path
+        description: Id of the order.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 123
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderResponse'
+    put:
+      tags:
+      - Shop
+      summary: Update Order
+      description: Method should change order object attributes values, there will be some restrictions in the future, depends on status in the order lifecycle.
+      operationId: UpdateOrder
+      parameters:
+      - name: orderId
+        in: path
+        description: Id of the order document.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 123
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+              example:
+                resultCode: true
+                errorCode: OK
+                errorDescription: OK.
+    delete:
+      tags:
+      - Shop
+      summary: Delete Order
+      description: 'In Case of type: Reservation: Calls respective e-Shop and Farmis
+        instance to delete the reservation objects in pharmacy. In Case of type: Order:
+        destroy the persisted data about order, in future should be passed to other
+        BackEnds'
+      operationId: DeleteOrder
+      parameters:
+      - name: orderId
+        in: path
+        description: Id of the order.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 123
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+              example:
+                resultCode: true
+                errorCode: OK
+                errorDescription: OK.
+  /eShop-services/api/v1/order/{orderId}/status:
+    put:
+      tags:
+      - Shop
+      summary: Update Order Status
+      description: "Updates Order Status.\nIn case of Reservation Type: \nReservation\
+        \ Status can be updated during reservation processing.\n- Reservation Status\
+        \ has the value `Requested` when the reservation was created in EShop and\
+        \ sent to respective Farmis instance via IPF.\n- Reservation Status can be\
+        \ updated by Farmis. In this case, the reservation status value can be updated\
+        \ to `PreparedForExpedition`, `Completed`, `Cancelled` or `InTrouble`.\n-\
+        \ Reservation Status update can be updated by call centre when the reservation\
+        \ has status `InTrouble`. In this case, the reservation status can be updated\
+        \ to `Requested` or `Cancelled`.\nIn case of eShop Type:\nTODO:\nThe Order\
+        \ life cycle should be described"
+      operationId: UpdateOrderStatus
+      parameters:
+      - name: orderId
+        in: path
+        description: Id of the order. Primary key.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          example: 123
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatusRequest'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+              example:
+                resultCode: true
+                errorCode: OK
+                errorDescription: OK.
+  /stock/api/v1/stock/available-product:
+    post:
+      tags:
+      - Stock
+      summary: GetProductAvailability
+      description: Returns returns availability of the list of products on list of warehouses. When list of warehouses isn't present, returns avalability for all warehauses where product is presented. So this approach covers all availabilyty requests.
+      operationId: GetProductAvailability
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductAvailabilityReq'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetproductavailabilityResponse'
+components:
+  schemas:
+    CommonResponse:
+      title: CommonResponse
+      required:
+      - resultCode
+      type: object
+      properties:
+        resultCode:
+          type: boolean
+          description: 'Result code. True in case of success, false in case of error.
+            Example: `true`.'
+        errorCode:
+          type: string
+          description: 'Error code. Short string with unique value. Examples: `OK`,
+            `IPF0001`.'
+          example: OK
+        errorDescription:
+          type: string
+          description: 'Error description. It provides information about the reason
+            of the error. Examples: `OK.`, `Internal error.`.'
+          example: OK.
+      example:
+        resultCode: true
+        errorCode: OK
+        errorDescription: OK.
+    AvailabilityType:
+      title: availabilityType
+      type: string
+      example: Stock
+      enum:
+      - Stock
+      - CrossDock
+    Order:
+      title: Order
+      required:
+      - dateTimeCreated
+      - dateTimeReservationEnd
+      - orderId
+      - orderItems
+      - totalDiscount
+      - totalPrice
+      - totalRounding
+      - totalVAT
+      - typeOfOrder
+      type: object
+      properties:
+        typeOfOrder:
+          $ref: '#/components/schemas/OrderType'
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        eshopInstanceName:
+          type: string
+          description: Name of the e-Shop instance.
+          example: magento2.CZE.production
+        warehouseId:
+          type: number
+          description: Id of the warehouse.
+          example: 55
+        loggedUser:
+          type: boolean
+          description: Indicates, if the order has been filed by the user (1) or not (0).
+        dateTimeCreated:
+          type: string
+          description: Date and time when the order was created.
+          example: 2018-10-01T16:29:08.000Z
+        dateTimeReservationEnd:
+          type: string
+          description: Date and time when the order expires.
+          example: 2018-10-01T16:29:08.000Z
+        dateTimeLastUpdated:
+          type: string
+          description: Date and time when the order expires.
+          example: 2018-10-01T16:29:08.000Z
+        totalPrice:
+          type: number
+          description: Total price (incl. VAT).
+          example: 575
+        totalVAT:
+          type: number
+          description: Total VAT amount.
+          example: 75
+        totalDiscount:
+          type: number
+          description: Total discount (incl. VAT).
+          example: 575
+        totalRounding:
+          type: number
+          description: Total rounding amount (incl. VAT).
+          example: 0
+        customer:
+          $ref: '#/components/schemas/Customer'
+        addressItems:
+          type: array
+          description: Addresses for order
+          items:
+            $ref: '#/components/schemas/CustomerAddress'
+        orderItems:
+          type: array
+          description: Order items.
+          items:
+            $ref: '#/components/schemas/OrderTreeItem'
+      description: Order main object
+    OrderStatus:
+      title: OrderStatus
+      type: string
+      example: Basketed
+      enum:
+      - Basketed
+      - Requested
+      - PreparedForExpedition
+      - Completed
+      - Cancelled
+      - InTrouble
+    OrderType:
+      title: OrderType
+      type: string
+      example: eShop
+      enum:
+      - Order
+      - Reservation
+    OrderStatusRequest:
+      title: OrderStatusRequest
+      required:
+      - orderStatus
+      type: object
+      properties:
+        orderStatus:
+          $ref: '#/components/schemas/OrderStatus'
+        note:
+          type: string
+          description: Note from the operator.
+          example: OK
+        userName:
+          type: string
+          description: User name of the operator (pharmacy, call centre).
+          example: novak01
+      example:
+        orderStatus: PreparedForExpedition
+        note: OK
+        userName: novak01
+    OrderTreeItem:
+      title: OrderTreeItem
+      required:
+      - item
+      - price
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the item. Type enum, -item- means simple item -rulle- means business rulle eg. 2+1 action unbreakable
+          example: item|rulle
+        couponOrderId:
+          type: number
+          description: Should be better described by e-shop
+          example: 123456
+        couponId:
+          type: number
+          description: Should be better described by e-shop
+          example: 123456
+        couponType:
+          type: string
+          description: Should be better described by e-shop
+          example: A
+        couponName:
+          type: string
+          description: Some sales rule name
+          example: Christmas evil is coming
+        totalDiscount:
+          type: number
+          description: Whole discount amount
+          example: 10000
+        maxCount:
+          type: number
+          description: Some counter
+          example: 0
+        price:
+          type: number
+          description: Price of the node
+          example: 0
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        itemExtensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/itemExtension'
+    OrderItem:
+      title: OrderItem
+      required:
+      - orderItemId
+      - price
+      - productId
+      - quantity
+      - unitPrice
+      - vatRate
+      type: object
+      properties:
+        orderItemId:
+          type: number
+          description: Id of the item. Primary key.
+          example: 12358
+        productId:
+          type: number
+          description: Id of the product. Foreign key.
+          example: 666111
+        crossDock:
+          type: boolean
+          description: CrossDock Item identification, true = CrossDock, false = warehouse .
+        quantity:
+          type: number
+          description: Quantity of the product.
+          example: 5
+        unitPrice:
+          type: number
+          description: Unit price (incl. VAT) of the product.
+          example: 25
+        price:
+          type: number
+          description: Item price (incl. VAT) .
+          example: 125
+        vatRate:
+          type: number
+          description: VAT rate (percentage) of the product.
+          example: 21
+        discount:
+          type: number
+          description: Item discount
+          example: 0
+        bonusItem:
+          type: boolean
+          description: Identified bonus item in case of business special packages
+        bonusPrice:
+          type: boolean
+          description: Identified bonus price in case of business special packages
+        bonusRemoveable:
+          type: boolean
+          description: maening of this attribut should be better specified
+        bonusRemoved:
+          type: boolean
+          description: maening of this attribut should be better specified
+        productNote:
+          type: string
+          description: Product note (colour, size).
+          example: Note.
+    itemExtension:
+      title: itemExtension
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+          description: Key name which determinate meaning of the value
+          example: Some key name
+        value:
+          type: string
+          description: Value paired with key
+          example: 123456-call
+        note:
+          type: string
+          description: Additional info related to key:value pair
+          example: 'some note about 123456-call '
+    AbstractCustomer:
+      title: AbstractCustomer object
+      required:
+      - street
+      type: object
+      properties:
+        clientUID:
+          type: number
+          description: ID of the customer, Foreign key.
+          example: 12598
+        namePrefix:
+          type: string
+          description: Name prefix eg. titles.
+          example: Ing.
+        firstName:
+          type: string
+          description: First name of the customer.
+          example: Jan
+        lastName:
+          type: string
+          description: Last name of the customer.
+          example: Novák
+        middleName:
+          type: string
+          description: Middle name of the customer.
+          example: Janovich
+        nameSuffix:
+          type: string
+          description: Name suffix eg. titles.
+          example: Csc.
+        emailAddress:
+          type: string
+          description: Email Address of the customer.
+          example: zakaznik@domena.cz
+        phoneNumberPrefix:
+          type: string
+          description: Country prefix for phone number of the customer
+          example: +420
+        phoneNumber:
+          type: number
+          description: Phone number of the customer
+          example: 123456789
+      description: Object represents set of common data atributes for customer and customer address objects
+    Customer:
+      title: Customer
+      required:
+      - clientUID
+      - firstName
+      - lastName
+      type: object
+      properties:
+        loyaltyCardId:
+          type: string
+          description: loyality Card ID  - DrMax to explain at least data format
+          example: "123456789"
+        customerNote:
+          type: string
+          description: Note from the customer.
+          example: Note from the customer.
+      description: Object represents the Customer who will buy some drugs
+      allOf:
+      - $ref: '#/components/schemas/AbstractCustomer'
+      - type: object
+    CustomerAddress:
+      title: Customer Address object
+      required:
+      - street
+      type: object
+      properties:
+        addressType:
+          type: string
+          example: shipping
+          enum:
+          - shipping
+          - billing
+        shippingMethod:
+          type: string
+          example: messenger
+          enum:
+          - messenger
+          - drugStore
+        pickupId:
+          type: string
+          description: Id of the pickup type
+          example: Lékárna
+        countryId:
+          type: string
+          description: expected ISO alpha 3 country code as a integration standard
+          example: CZE
+        postCode:
+          type: string
+          description: ZIP
+          example: "110000"
+        city:
+          type: string
+          description: Address of the customer- town (village).
+          example: Praha
+        street:
+          type: string
+          description: Street name probably incl description like floor, flat num ....
+          example: Praha
+        companyName:
+          type: string
+          description: Company name in case of use with VAT identification.
+          example: Jmeno firmy
+        vatId:
+          type: string
+          description: VAT ID if applicable
+          example: CZ365001458
+        businessRegistration:
+          type: string
+          description: Business regitration , for CZECH means IČ0
+          example: "365280047"
+        regionId:
+          type: number
+          description: Id of the region
+          example: 2
+        regionCode:
+          type: string
+          description: Region code of the Address
+          example: VM
+        region:
+          type: string
+          description: Region of the Address
+          example: Velka morava
+      description: Object represents Address points of the customer who will buy some drugs
+      allOf:
+      - $ref: '#/components/schemas/AbstractCustomer'
+      - type: object
+    CreateOrder:
+      title: CreateOrder
+      required:
+      - orderId
+      type: object
+      properties:
+        orderId:
+          type: number
+          description: Id of the order. Primary key.
+          example: 123
+        order:
+          $ref: '#/components/schemas/Order'
+    ProductAvailabilityItem:
+      title: ProductAvailabilityItem
+      required:
+      - productId
+      type: object
+      properties:
+        sku:
+          type: number
+          description: Id of the product. Magento SKU (CZ market FarmisID)
+          example: 666111
+        availabilityOnWarehouse:
+          type: array
+          description: Present if product is available or zero in case that all stocks is ordered or reserved
+          items:
+            $ref: '#/components/schemas/WarehouseProductAvailabilityItem'
+    WarehouseProductAvailabilityItem:
+      title: WarehouseProductAvailabilityItem
+      required:
+      - availabilityType
+      - availableQuantity
+      - isUpToDate
+      - providesReservation
+      - warehouseId
+      type: object
+      properties:
+        warehouseId:
+          type: number
+          description: Id of the warehouse, same as pharmacy ID in case of pharmacy warehouse.
+          example: 666111
+        availableQuantity:
+          type: number
+          description: Available quantity of the product at the warehouse. Available quantity equals Total quantity minus Frozen quantity minus Reserved/Ordered quantity.
+          example: 6
+        availabilityType:
+          $ref: '#/components/schemas/AvailabilityType'
+        providesReservation:
+          type: boolean
+          description: True, if the warehouse provides product reservations.
+        isUpToDate:
+          type: boolean
+          description: True, if the pharmacy is online and its stock item data is up-to-date.
+    ProductAvailabilityRes:
+      title: ProductAvailabilityRes
+      required:
+      - availableStocks
+      type: object
+      properties:
+        availableStocks:
+          type: array
+          description: Product availability on werhaouses
+          items:
+            $ref: '#/components/schemas/ProductAvailabilityItem'
+    ListOfProduct:
+      title: ListOfProduct
+      required:
+      - productId
+      type: object
+      properties:
+        productId:
+          type: array
+          description: List of productIds
+          items:
+            type: string
+    ListOfWarehouse:
+      title: ListOfWarehouse
+      required:
+      - warehouseId
+      type: object
+      properties:
+        warehouseId:
+          type: array
+          description: List of warehouseIds
+          items:
+            type: string
+    ProductAvailabilityReq:
+      title: ProductAvailabilityReq
+      required:
+      - product
+      - warehouse
+      type: object
+      properties:
+        product:
+          type: array
+          description: List of products for availability checking
+          items:
+            $ref: '#/components/schemas/ListOfProduct'
+        warehouse:
+          type: array
+          description: List of products for availability checking, if not present whole availability will be returned
+          items:
+            $ref: '#/components/schemas/ListOfWarehouse'
+      example:
+        product:
+        - productId:
+          - 123
+        warehouse:
+        - warehouseId:
+          - 456
+          - 256
+          - 598
+    GetOrderResponse:
+      title: Get Order response
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
+      allOf:
+      - $ref: '#/components/schemas/CommonResponse'
+      - type: object
+    GetproductavailabilityResponse:
+      title: GetProductAvailability response
+      properties:
+        availableStock:
+          $ref: '#/components/schemas/ProductAvailabilityRes'
+      allOf:
+      - $ref: '#/components/schemas/CommonResponse'
+      - type: object
