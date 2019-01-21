@@ -348,6 +348,13 @@ components:
       enum:
       - eShop
       - Reservation
+    TreeItemType:
+      title: Type of the tree item.
+      type: string
+      example: item
+      enum:
+      - item
+      - rule
     OrderStatusRequest:
       title: OrderStatusRequest
       required:
@@ -376,10 +383,6 @@ components:
       - type
       type: object
       properties:
-        type:
-          type: string
-          description: Type of the item. Type enum, -item- means simple item -rulle- means business rulle eg. 2+1 action unbreakable
-          example: item|rulle
         couponOrderId:
           type: number
           description: Should be better described by e-shop
