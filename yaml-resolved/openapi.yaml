@@ -371,7 +371,7 @@ components:
     OrderTreeItem:
       title: OrderTreeItem
       required:
-      - item
+      - items
       - price
       - type
       type: object
