@@ -383,6 +383,8 @@ components:
       - type
       type: object
       properties:
+        type:
+          $ref: '#/components/schemas/TreeItemType'
         couponOrderId:
           type: number
           description: Should be better described by e-shop
