@@ -41,7 +41,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateOrder'
+              $ref: '#/components/schemas/CreateOrderRequest'
         required: true
       responses:
         200:
@@ -622,8 +622,8 @@ components:
       allOf:
       - $ref: '#/components/schemas/AbstractCustomer'
       - type: object
-    CreateOrder:
-      title: CreateOrder
+    CreateOrderRequest:
+      title: CreateOrderRequest
       required:
       - orderId
       type: object
