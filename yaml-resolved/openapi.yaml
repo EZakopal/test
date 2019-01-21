@@ -562,6 +562,13 @@ components:
     CustomerAddress:
       title: Customer Address object
       required:
+      - addressType
+      - city
+      - clientUID
+      - firstName
+      - lastName
+      - postCode
+      - shippingMethod
       - street
       type: object
       properties:
