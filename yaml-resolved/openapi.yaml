@@ -635,6 +635,7 @@ components:
     CreateOrderRequest:
       title: CreateOrderRequest
       required:
+      - order
       - orderId
       type: object
       properties:
