@@ -48,7 +48,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: '#/components/schemas/CommonResponse'
   /eShop-services/api/v1/order/{orderId}:
     get:
       tags:
