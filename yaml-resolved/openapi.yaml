@@ -346,7 +346,7 @@ components:
       type: string
       example: eShop
       enum:
-      - Order
+      - eShop
       - Reservation
     OrderStatusRequest:
       title: OrderStatusRequest
