@@ -415,7 +415,7 @@ components:
         itemExtensions:
           type: array
           items:
-            $ref: '#/components/schemas/itemExtension'
+            $ref: '#/components/schemas/ItemExtension'
     OrderItem:
       title: OrderItem
       required:
@@ -474,7 +474,7 @@ components:
           type: string
           description: Product note (colour, size).
           example: Note.
-    itemExtension:
+    ItemExtension:
       title: itemExtension
       required:
       - key
