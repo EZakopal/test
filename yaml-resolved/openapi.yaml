@@ -419,6 +419,7 @@ components:
     OrderItem:
       title: OrderItem
       required:
+      - crossDock
       - orderItemId
       - price
       - productId
