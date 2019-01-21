@@ -497,7 +497,9 @@ components:
     AbstractCustomer:
       title: AbstractCustomer object
       required:
-      - street
+      - clientUID
+      - firstName
+      - lastName
       type: object
       properties:
         clientUID:
