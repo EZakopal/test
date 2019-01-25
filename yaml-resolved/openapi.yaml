@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Dr. Max IPF - CrossDock / M2 API
-  description: Dr.Max Cross dock API provide comprehensive set of features for consumers whom realize CrossDock business integration as well as prepare new version of other processes
+  title: Dr. Max IPF - Eshop / M2 API
+  description: Dr.Max Eshop API provides comprehensive set of features for consumers whom realize CrossDock business integration as well as prepare new version of other processes
   version: 1.0.0
 servers:
 - url: https://virtserver.swaggerhub.com/DrMax_BDC/CrossDock/1.0.0
