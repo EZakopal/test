@@ -332,15 +332,51 @@ components:
       description: Order main object
     OrderStatus:
       title: OrderStatus
+      type: object
+      properties:
+        OrderStatusState:
+          $ref: '#/components/schemas/OrderStatusState'
+        OrderStatusReason:
+          $ref: '#/components/schemas/OrderStatusReason'
+    OrderStatusState:
+      title: OrderStatusState
       type: string
       example: Basketed
       enum:
       - Basketed
-      - Requested
-      - PreparedForExpedition
-      - Completed
-      - Cancelled
+      - Validated
+      - Locked
+      - Backordered
+      - Reserved
       - InTrouble
+      - WMSQueued
+      - Picking
+      - WMSPackaging
+      - WMSPacked
+      - WMSProcessed
+      - TransportWait
+      - Transporting
+      - Transported
+      - ShipmentWait
+      - Shipping
+      - ReadyForPickup
+      - Pickup
+      - Delivered
+      - Expired
+      - ReturnTransportWait
+      - ReturnTransporting
+      - ReturnTransported
+    OrderStatusReason:
+      title: OrderStatusReason
+      type: string
+      example: AdminDuplicate
+      enum:
+      - Admin
+      - Customer
+      - WMS
+      - POS
+      - ERP
+      - AdminDuplicate
     OrderType:
       title: OrderType
       type: string
