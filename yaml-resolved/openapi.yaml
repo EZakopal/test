@@ -154,13 +154,13 @@ paths:
       tags:
       - Shop
       summary: Update Order Status
-      description: "Updates Order Status.\nIn case of Reservation Type: \nReservation\
-        \ Status can be updated during reservation processing.\n- Reservation Status\
-        \ has the value `Requested` when the reservation was created in EShop and\
-        \ sent to respective Farmis instance via IPF.\n- Reservation Status can be\
-        \ updated by Farmis. In this case, the reservation status value can be updated\
-        \ to `PreparedForExpedition`, `Completed`, `Cancelled` or `InTrouble`.\n-\
-        \ Reservation Status update can be updated by call centre when the reservation\
+      description: "OBSOLETE: Updates Order Status.\nIn case of Reservation Type:\
+        \ \nReservation Status can be updated during reservation processing.\n- Reservation\
+        \ Status has the value `Requested` when the reservation was created in EShop\
+        \ and sent to respective Farmis instance via IPF.\n- Reservation Status can\
+        \ be updated by Farmis. In this case, the reservation status value can be\
+        \ updated to `PreparedForExpedition`, `Completed`, `Cancelled` or `InTrouble`.\n\
+        - Reservation Status update can be updated by call centre when the reservation\
         \ has status `InTrouble`. In this case, the reservation status can be updated\
         \ to `Requested` or `Cancelled`.\nIn case of eShop Type:\nTODO:\nThe Order\
         \ life cycle should be described"
