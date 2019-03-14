@@ -84,7 +84,7 @@ paths:
       tags:
       - Shop
       summary: Update Order
-      description: Method should change order object attributes values, there will be some restrictions in the future, depends on status in the order lifecycle.
+      description: Method should change order object attributes values, there will be some restrictions in the future, depends on status in the order lifecycle. It is aimed for changing order attributes on POS side.
       operationId: UpdateOrder
       parameters:
       - name: orderId
@@ -239,6 +239,7 @@ components:
           type: boolean
           description: 'Result code. True in case of success, false in case of error.
             Example: `true`.'
+          example: true
         errorCode:
           type: string
           description: 'Error code. Short string with unique value. Examples: `OK`,
@@ -289,6 +290,7 @@ components:
         loggedUser:
           type: boolean
           description: Indicates, if the order has been filed by the user (1) or not (0).
+          example: false
         dateTimeCreated:
           type: string
           description: Date and time when the order was created.
@@ -480,6 +482,7 @@ components:
         crossDock:
           type: boolean
           description: CrossDock Item identification, true = CrossDock, false = warehouse .
+          example: true
         quantity:
           type: number
           description: Quantity of the product.
@@ -503,15 +506,19 @@ components:
         bonusItem:
           type: boolean
           description: Identified bonus item in case of business special packages
+          example: false
         bonusPrice:
           type: boolean
           description: Identified bonus price in case of business special packages
+          example: false
         bonusRemoveable:
           type: boolean
           description: maening of this attribut should be better specified
+          example: false
         bonusRemoved:
           type: boolean
           description: maening of this attribut should be better specified
+          example: false
         productNote:
           type: string
           description: Product note (colour, size).
@@ -724,9 +731,11 @@ components:
         providesReservation:
           type: boolean
           description: True, if the warehouse provides product reservations.
+          example: true
         isUpToDate:
           type: boolean
           description: True, if the pharmacy is online and its stock item data is up-to-date.
+          example: true
     ProductAvailabilityRes:
       title: ProductAvailabilityRes
       required:
