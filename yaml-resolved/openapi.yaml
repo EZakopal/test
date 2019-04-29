@@ -351,6 +351,14 @@ components:
           $ref: '#/components/schemas/OrderStatusState'
         OrderStatusReason:
           $ref: '#/components/schemas/OrderStatusReason'
+    Delivery:
+      title: OrderStatus
+      type: object
+      properties:
+        deliveryId:
+          type: string
+          description: Delivery service/package ID.
+          example: "2589874563218"
     OrderStatusState:
       title: OrderStatusState
       type: string
