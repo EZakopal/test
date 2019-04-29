@@ -352,7 +352,7 @@ components:
         OrderStatusReason:
           $ref: '#/components/schemas/OrderStatusReason'
     Delivery:
-      title: OrderStatus
+      title: Delivery data
       type: object
       properties:
         deliveryId:
@@ -368,6 +368,30 @@ components:
           type: number
           description: Price of delivery
           example: 25896.5
+    Price:
+      title: Price object general
+      type: object
+      properties:
+        price:
+          type: number
+          description: Price, amount
+          example: 100.0
+        vat:
+          type: number
+          description: VAT amount
+          example: 21.0
+        currency:
+          type: string
+          description: Curency of the price object, ISO 3alpha
+          example: CZK
+        discount:
+          type: number
+          description: Discount given to price
+          example: 10.0
+        raunding:
+          type: number
+          description: rounding related to price, rounding amount (incl. VAT).
+          example: 0.23
     OrderStatusState:
       title: OrderStatusState
       type: string
