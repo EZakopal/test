@@ -342,6 +342,8 @@ components:
           description: Order items.
           items:
             $ref: '#/components/schemas/OrderTreeItem'
+        deliveryParams:
+          $ref: '#/components/schemas/Delivery'
       description: Order main object
     OrderStatus:
       title: OrderStatus
@@ -365,9 +367,9 @@ components:
             to hand afternoon delivery
           example: true
         deliveryPrice:
-          type: number
-          description: Price of delivery
-          example: 25896.5
+          $ref: '#/components/schemas/Price'
+        packagingPrice:
+          $ref: '#/components/schemas/Price'
     Price:
       title: Price object general
       type: object
