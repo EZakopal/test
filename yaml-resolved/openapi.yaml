@@ -1,7 +1,9 @@
 openapi: 3.0.0
 info:
   title: Dr. Max IPF - Eshop / M2 API
-  description: Dr.Max Eshop API provides comprehensive set of features for consumers whom realize CrossDock business integration as well as prepare new version of other processes
+  description: Dr.Max Eshop API provides comprehensive set of features for consumers
+    whom realize CrossDock business integration as well as prepare new version of
+    other processes
   version: 1.0.0
 servers:
 - url: https://virtserver.swaggerhub.com/DrMax_BDC/CrossDock/1.0.0
@@ -25,7 +27,9 @@ paths:
       tags:
       - Shop
       summary: Create Order
-      description: Creates new order object, in case of _Reservation type_ is passed into pharmacy (Farmis instance). Order object already exists in EShop DB and it is passed as a request body of this call.
+      description: Creates new order object, in case of _Reservation type_ is passed
+        into pharmacy (Farmis instance). Order object already exists in EShop DB and
+        it is passed as a request body of this call.
       operationId: CreateOrder
       parameters:
       - name: Content-Type
@@ -54,7 +58,8 @@ paths:
       tags:
       - Shop
       summary: Get Order
-      description: Returns the order object from e-Shop DB. (For now, will be used for operations and monitoring purposes as well as for debugging of issues)
+      description: Returns the order object from e-Shop DB. (For now, will be used
+        for operations and monitoring purposes as well as for debugging of issues)
       operationId: GetOrder
       parameters:
       - name: orderId
@@ -84,7 +89,9 @@ paths:
       tags:
       - Shop
       summary: Update Order
-      description: Method should change order object attributes values, there will be some restrictions in the future, depends on status in the order lifecycle. It is aimed for changing order attributes on POS side.
+      description: Method should change order object attributes values, there will
+        be some restrictions in the future, depends on status in the order lifecycle.
+        It is aimed for changing order attributes on POS side.
       operationId: UpdateOrder
       parameters:
       - name: orderId
@@ -204,7 +211,10 @@ paths:
       tags:
       - Stock
       summary: GetProductAvailability
-      description: Returns returns availability of the list of products on list of warehouses. When list of warehouses isn't present, returns avalability for all warehauses where product is presented. So this approach covers all availabilyty requests.
+      description: Returns returns availability of the list of products on list of
+        warehouses. When list of warehouses isn't present, returns avalability for
+        all warehauses where product is presented. So this approach covers all availabilyty
+        requests.
       operationId: GetProductAvailability
       parameters:
       - name: Content-Type
@@ -289,7 +299,8 @@ components:
           example: 55
         loggedUser:
           type: boolean
-          description: Indicates, if the order has been filed by the user (1) or not (0).
+          description: Indicates, if the order has been filed by the user (1) or not
+            (0).
           example: false
         dateTimeCreated:
           type: string
@@ -481,7 +492,8 @@ components:
           example: 666111
         crossDock:
           type: boolean
-          description: CrossDock Item identification, true = CrossDock, false = warehouse .
+          description: CrossDock Item identification, true = CrossDock, false = warehouse
+            .
           example: true
         quantity:
           type: number
@@ -586,7 +598,8 @@ components:
           type: number
           description: Phone number of the customer
           example: 123456789
-      description: Object represents set of common data atributes for customer and customer address objects
+      description: Object represents set of common data atributes for customer and
+        customer address objects
     Customer:
       title: Customer
       required:
@@ -599,6 +612,10 @@ components:
           type: string
           description: loyality Card ID  - DrMax to explain at least data format
           example: "123456789"
+        identityId:
+          type: string
+          description: identity id
+          example: AD123456789
         customerNote:
           type: string
           description: Note from the customer.
@@ -650,7 +667,16 @@ components:
           example: Praha
         street:
           type: string
-          description: Street name probably incl description like floor, flat num ....
+          description: Street name probably incl description like floor, flat num
+            ....
+          example: Praha
+        descriptiveNumber:
+          type: string
+          description: Number of the building, the main one ....
+          example: Praha
+        orientationNumber:
+          type: string
+          description: Number of the building, the helping one ....
           example: Praha
         companyName:
           type: string
@@ -676,7 +702,8 @@ components:
           type: string
           description: Region of the Address
           example: Velka morava
-      description: Object represents Address points of the customer who will buy some drugs
+      description: Object represents Address points of the customer who will buy some
+        drugs
       allOf:
       - $ref: '#/components/schemas/AbstractCustomer'
       - type: object
@@ -705,7 +732,8 @@ components:
           example: 666111
         availabilityOnWarehouse:
           type: array
-          description: Present if product is available or zero in case that all stocks is ordered or reserved
+          description: Present if product is available or zero in case that all stocks
+            is ordered or reserved
           items:
             $ref: '#/components/schemas/WarehouseProductAvailabilityItem'
     WarehouseProductAvailabilityItem:
@@ -720,11 +748,14 @@ components:
       properties:
         warehouseId:
           type: number
-          description: Id of the warehouse, same as pharmacy ID in case of pharmacy warehouse.
+          description: Id of the warehouse, same as pharmacy ID in case of pharmacy
+            warehouse.
           example: 666111
         availableQuantity:
           type: number
-          description: Available quantity of the product at the warehouse. Available quantity equals Total quantity minus Frozen quantity minus Reserved/Ordered quantity.
+          description: Available quantity of the product at the warehouse. Available
+            quantity equals Total quantity minus Frozen quantity minus Reserved/Ordered
+            quantity.
           example: 6
         availabilityType:
           $ref: '#/components/schemas/AvailabilityType'
@@ -734,7 +765,8 @@ components:
           example: true
         isUpToDate:
           type: boolean
-          description: True, if the pharmacy is online and its stock item data is up-to-date.
+          description: True, if the pharmacy is online and its stock item data is
+            up-to-date.
           example: true
     ProductAvailabilityRes:
       title: ProductAvailabilityRes
@@ -783,7 +815,8 @@ components:
             $ref: '#/components/schemas/ListOfProduct'
         warehouse:
           type: array
-          description: List of products for availability checking, if not present whole availability will be returned
+          description: List of products for availability checking, if not present
+            whole availability will be returned
           items:
             $ref: '#/components/schemas/ListOfWarehouse'
       example:
