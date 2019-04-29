@@ -359,6 +359,15 @@ components:
           type: string
           description: Delivery service/package ID.
           example: "2589874563218"
+        deliveryParams:
+          type: boolean
+          description: true = package to hand - morning delivery, false = package
+            to hand afternoon delivery
+          example: true
+        deliveryPrice:
+          type: number
+          description: Price of delivery
+          example: 25896.5
     OrderStatusState:
       title: OrderStatusState
       type: string
