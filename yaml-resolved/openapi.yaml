@@ -390,10 +390,46 @@ components:
           type: number
           description: Discount given to price
           example: 10.0
-        raunding:
+        rounding:
           type: number
           description: rounding related to price, rounding amount (incl. VAT).
           example: 0.23
+    EetTaxRange:
+      title: EET tax ranges
+      type: object
+      properties:
+        taxRange:
+          type: number
+          description: VAT range, for free of VAT -1, 0 for standard ...etc.
+          example: -1
+        taxRate:
+          type: number
+          description: Real tax rate 0, 21, 15 ...
+          example: 21
+        amountInRate:
+          type: number
+          description: Tax basement in the range.
+          example: 21
+    EetData:
+      title: EET Data object
+      type: object
+      properties:
+        messageUUID:
+          type: string
+          description: Unique identification of the message UUID v4.
+          example: d52c26ed-0c9d-4a12-9e84-4ee0a00b8611
+        sendDate:
+          type: string
+          description: Date time of the EET message.
+          example: 2018-10-01T16:29:08.000Z
+        firstAttempt:
+          type: boolean
+          description: Identification of first try to send.
+          example: true
+        verification:
+          type: boolean
+          description: True = test message, False = real one by §18 ZoET meaning.
+          example: false
     OrderStatusState:
       title: OrderStatusState
       type: string
