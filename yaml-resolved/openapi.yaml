@@ -447,6 +447,21 @@ components:
           description: Identification of the cash register equipment according registration
             on the MF portal
           example: XYZ_321
+        receiptId:
+          type: string
+          description: Identification of the cash register equipment according registration
+            on the MF portal
+          example: XYZ_321
+        receiptDate:
+          type: string
+          description: Date time of the receipt.
+          example: 2018-10-01T16:29:08.000Z
+        receiptTotalRevenue:
+          type: number
+          description: Total revenue of the receipt.
+          example: 12345.369
+        vatRecapitulation:
+          type: object
     OrderStatusState:
       title: OrderStatusState
       type: string
