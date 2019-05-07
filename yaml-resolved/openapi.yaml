@@ -459,6 +459,22 @@ components:
           type: number
           description: Total revenue of the receipt.
           example: 12345.369
+        revenueMode:
+          type: boolean
+          description: Regime of the comunication.
+          example: true
+        PKP:
+          type: string
+          description: Signature code of the taxpayer .
+          example: 123gt123yu456ui465uy654t465re65w4ertae
+        BKP:
+          type: string
+          description: Security code of the taxpayer .
+          example: 123gt123yu4dfg1016sr35g13sd5a3w56ui465
+        FIK:
+          type: string
+          description: Swecurity code of the taxpayer .
+          example: 123gt123yu4dfg1016sr35g13sd5a3w56ui465
     OrderStatusState:
       title: OrderStatusState
       type: string
