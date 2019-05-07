@@ -430,6 +430,23 @@ components:
           type: boolean
           description: True = test message, False = real one by §18 ZoET meaning.
           example: false
+        vatIdTaxpayer:
+          type: string
+          description: Vat ID of the taxpayer
+          example: CZ213456789
+        vatIdEntrustTaxpayer:
+          type: string
+          description: Vat ID of the Emtrust taxpayer
+          example: CZ213456789
+        branchIdentification:
+          type: string
+          description: Identification of the brach
+          example: XYZ_321
+        cashRegisterEquipment:
+          type: string
+          description: Identification of the cash register equipment according registration
+            on the MF portal
+          example: XYZ_321
     OrderStatusState:
       title: OrderStatusState
       type: string
