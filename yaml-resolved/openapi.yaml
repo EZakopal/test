@@ -396,20 +396,9 @@ components:
           example: 0.23
     EetTaxRange:
       title: EET tax ranges
-      type: object
-      properties:
-        taxRange:
-          type: number
-          description: VAT range, for free of VAT -1, 0 for standard ...etc.
-          example: -1
-        taxRate:
-          type: number
-          description: Real tax rate 0, 21, 15 ...
-          example: 21
-        amountInRate:
-          type: number
-          description: Tax basement in the range.
-          example: 21
+      type: array
+      items:
+        $ref: '#/components/schemas/EetTaxRange_inner'
     EetData:
       title: EET Data object
       type: object
@@ -461,7 +450,15 @@ components:
           description: Total revenue of the receipt.
           example: 12345.369
         vatRecapitulation:
-          type: object
+          $ref: '#/components/schemas/EetTaxRange'
+        postponedAmount:
+          type: number
+          description: Total revenue of the receipt.
+          example: 12345.369
+        postponedAmountPaid:
+          type: number
+          description: Total revenue of the receipt.
+          example: 12345.369
     OrderStatusState:
       title: OrderStatusState
       type: string
@@ -955,3 +952,18 @@ components:
       allOf:
       - $ref: '#/components/schemas/CommonResponse'
       - type: object
+    EetTaxRange_inner:
+      type: object
+      properties:
+        taxRange:
+          type: number
+          description: VAT range, for free of VAT -1, 0 for standard ...etc.
+          example: -1
+        taxRate:
+          type: number
+          description: Real tax rate 0, 21, 15 ...
+          example: 21
+        amountInRate:
+          type: number
+          description: Tax basement in the range.
+          example: 21
