@@ -344,7 +344,7 @@ components:
             $ref: '#/components/schemas/OrderTreeItem'
         deliveryParams:
           $ref: '#/components/schemas/Delivery'
-        EET:
+        eet:
           $ref: '#/components/schemas/EetData'
       description: Order main object
     OrderStatus:
