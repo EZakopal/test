@@ -799,11 +799,11 @@ components:
         descriptiveNumber:
           type: string
           description: Number of the building, the main one ....
-          example: Praha
+          example: "3277"
         orientationNumber:
           type: string
           description: Number of the building, the helping one ....
-          example: Praha
+          example: "6"
         companyName:
           type: string
           description: Company name in case of use with VAT identification.
