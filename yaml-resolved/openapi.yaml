@@ -276,6 +276,7 @@ components:
       required:
       - dateTimeCreated
       - dateTimeReservationEnd
+      - deliveryParams
       - orderId
       - orderItems
       - totalDiscount
@@ -357,13 +358,16 @@ components:
           $ref: '#/components/schemas/OrderStatusReason'
     Delivery:
       title: Delivery data
+      required:
+      - deliveryPrice
+      - packagingPrice
       type: object
       properties:
         deliveryId:
           type: string
           description: Delivery service/package ID.
           example: "2589874563218"
-        deliveryParams:
+        deliveryCondition:
           type: boolean
           description: true = package to hand - morning delivery, false = package
             to hand afternoon delivery
@@ -374,6 +378,9 @@ components:
           $ref: '#/components/schemas/Price'
     Price:
       title: Price object general
+      required:
+      - price
+      - vat
       type: object
       properties:
         price:
