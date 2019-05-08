@@ -475,7 +475,7 @@ components:
           example: 123gt123yu4dfg1016sr35g13sd5a3w56ui465
         FIK:
           type: string
-          description: Swecurity code of the taxpayer .
+          description: Security code of the transaction .
           example: 123gt123yu4dfg1016sr35g13sd5a3w56ui465
     OrderStatusState:
       title: OrderStatusState
