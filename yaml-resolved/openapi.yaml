@@ -405,6 +405,11 @@ components:
           example: 0.23
     EetTaxRange:
       title: EET tax ranges
+      required:
+      - amountInRate
+      - amountVAT
+      - taxRange
+      - taxRate
       type: array
       items:
         $ref: '#/components/schemas/EetTaxRange_inner'
