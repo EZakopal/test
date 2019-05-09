@@ -1004,4 +1004,8 @@ components:
         amountInRate:
           type: number
           description: Tax basement in the range.
-          example: 21
+          example: 100.0
+        amountVAT:
+          type: number
+          description: VAT amount.
+          example: 21.36
